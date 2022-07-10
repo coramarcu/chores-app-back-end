@@ -15,6 +15,12 @@ const setUpDatabase = async () => {
     });
 
     await db.query(`CREATE DATABASE IF NOT EXISTS ${DB_NAME}`);
+    await db.query(`USE ${DB_NAME}`);
+    await db.query(`CREATE TABLE IF NOT EXISTS Chores (
+  id INT PRIMARY KEY auto_increment,
+  name VARCHAR(25),
+  price INT
+)`);
     db.close();
   } catch (err) {
     console.log(

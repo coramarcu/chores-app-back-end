@@ -1,14 +1,15 @@
 const express = require("express");
 const choresRoutes = require("./routes/chores-routes");
+const choresController = require("./controllers/chores-controllers");
 
 const app = express();
 
-// ========== MIDLEWARES ==========
-
-// allow use of JSON objects for HTTP requests
 app.use(express.json());
+app.use("/chores", choresController.createChores);
 
-// use chores-routes.js file to handle all endpoints that start with /chores
-app.use("/chores", choresRoutes);
+app.get("/", (req, res) => {
+  res.status(201);
+  res.send("Hello app!");
+});
 
 module.exports = app;

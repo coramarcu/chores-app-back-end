@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const choresController = require("../controllers/chores-controller");
+const choresController = require("../controllers/chores-controllers");
 
-router.get("/chores", choresController.getChores);
 router.post("/chores", choresController.createChores);
 
 module.exports = router;
