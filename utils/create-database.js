@@ -19,7 +19,10 @@ const setUpDatabase = async () => {
     await db.query(`CREATE TABLE IF NOT EXISTS Chores (
   id INT PRIMARY KEY auto_increment,
   name VARCHAR(25),
-  price INT
+  price INT,
+  status VARCHAR(25),
+  owner INT,
+  familyID INT
 )`);
     db.close();
   } catch (err) {
