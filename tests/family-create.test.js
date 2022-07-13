@@ -1,6 +1,6 @@
-// const { expect } = require("chai");
-// const request = require("supertest");
-// const app = require("../src/app");
+ const { expect } = require("chai");
+ const request = require("supertest");
+ const app = require("../src/app");
 
 // describe("create family", () => {
 //   describe("/family", () => {
