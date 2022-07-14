@@ -1,7 +1,7 @@
-const getDb = require("../services/db");
+const getDB = require("../services/db");
 
 exports.createFamily = async (req, res) => {
-  const db = await getDb();
+  const db = await getDB();
   const { familyID, familyName } = req.body;
 
   try {

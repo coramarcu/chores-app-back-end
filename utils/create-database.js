@@ -26,7 +26,6 @@ const setUpDatabase = async () => {
       email VARCHAR(255) NOT NULL,
       name VARCHAR(25),
       role VARCHAR(25) NOT NULL,
-      status VARCHAR(25),
       familyID INT,
       FOREIGN KEY (familyID) REFERENCES Family(familyID),
       balance INT,
@@ -34,13 +33,13 @@ const setUpDatabase = async () => {
      )`);
 
     await db.query(`CREATE TABLE IF NOT EXISTS Chores(
-      choresID INT PRIMARY KEY AUTO_INCREMENT,
+      choreID INT PRIMARY KEY AUTO_INCREMENT,
       name VARCHAR(25),
       price INT,
       status VARCHAR(25),
       familyID INT,
-      userID INT,
       FOREIGN KEY(familyID) REFERENCES Family(familyID),
+      userID INT,
       FOREIGN KEY(userID) REFERENCES User(userID)
      )`);
 

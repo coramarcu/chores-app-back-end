@@ -1,13 +1,15 @@
 const express = require("express");
 const choresRoutes = require("./routes/chores-routes");
-const choresController = require("./controllers/chores-controllers");
-const familyController = require("./controllers/family-controllers");
+const familyRoutes = require("./routes/family-routes");
+const choresControllers = require("./controllers/chores-controllers");
+const familyControllers = require("./controllers/family-controllers");
 
 const app = express();
 
 app.use(express.json());
-app.use("/chores", choresController.createChores);
-app.use("/family", familyController.createFamily);
+app.post("/chores", choresControllers.createChores);
+app.post("/family", familyControllers.createFamily);
+app.get("/family/:familyID/chores", choresControllers.readChores);
 
 app.get("/", (req, res) => {
   res.status(201);

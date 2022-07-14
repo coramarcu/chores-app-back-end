@@ -1,8 +1,8 @@
 // const express = require("express");
-// const familyController = require("../controllers/family");
+// const familyControllers = require("../controllers/family-controllers");
 
 // const router = express.Router();
 
-// router.post("/family", familyController.create);
+// router.post("/family", familyControllers.createFamily);
 
 // module.exports = router;

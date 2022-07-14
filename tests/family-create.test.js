@@ -19,8 +19,6 @@ describe("create family", () => {
           familyName: "The Smiths",
         });
 
-        console.log(res.body);
-
         expect(res.status).to.equal(201);
 
         const [[familyEntry]] = await db.query(
