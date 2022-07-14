@@ -7,7 +7,7 @@ const familyControllers = require("./controllers/family-controllers");
 const app = express();
 
 app.use(express.json());
-app.post("/chores", choresControllers.createChores);
+app.post("/chores", choresControllers.createChore);
 app.post("/family", familyControllers.createFamily);
 app.get("/family/:familyID/chores", choresControllers.readChores);
 

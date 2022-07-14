@@ -1,6 +1,6 @@
 const getDb = require("../services/db");
 
-exports.createChores = async (req, res) => {
+exports.createChore = async (req, res) => {
   const db = await getDb();
   const { name, price, status, familyID } = req.body;
 
