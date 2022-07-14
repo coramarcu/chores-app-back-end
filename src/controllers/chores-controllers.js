@@ -30,10 +30,11 @@ exports.readChores = async (req, res) => {
   const { familyID } = req.params;
 
   try {
-    const [[chores]] = await db.query(
-      `SELECT * FROM Family WHERE familyID = ?`,
-      [familyID]
-    );
+    const [chores] = await db.query(`SELECT * FROM Chores WHERE familyID = ?`, [
+      familyID,
+    ]);
+
+    console.log("From Controller:" + chores);
 
     res.status(200);
     res.send(chores);

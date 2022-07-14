@@ -46,7 +46,6 @@ describe("create chore", () => {
 
     describe("GET", () => {
       it("gets all chores from the database", async () => {
-        // make a Family so you can use familyID as FOREIGN KEY
         await db.query(
           'INSERT INTO Family (familyID, familyName) VALUES (22, "Marcu")'
         );
@@ -54,7 +53,13 @@ describe("create chore", () => {
           `INSERT INTO User (email, role, userID) VALUES ("email@email.com", "child", 2)`
         );
         await db.query(
+          `INSERT INTO User (email, role, userID) VALUES ("email@email.com", "child", 1)`
+        );
+        await db.query(
           `INSERT INTO Chores (choreID, name, price, status, familyID, userID) VALUES (1, "do dishes", 10, "active", 22, 2)`
+        );
+        await db.query(
+          `INSERT INTO Chores (choreID, name, price, status, familyID, userID) VALUES (2, "do laundry", 15, "pending", 22, 1)`
         );
 
         // actual test starts here
@@ -65,8 +70,6 @@ describe("create chore", () => {
 
         console.log(res.body);
         expect(res.status).to.equal(200);
-
-        // const [[choresEntries]] = await db.query(`SELECT * FROM Chores`);
       });
     });
   });
