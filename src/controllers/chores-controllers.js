@@ -43,3 +43,34 @@ exports.readChores = async (req, res) => {
     res.sendStatus(500).json(err);
   }
 };
+
+// name, price, status, userID
+exports.updateChores = async (req, res) => {
+  const db = await getDb();
+  const { choreID, name, price, status } = req.body;
+
+  const newName = name ? ` name = "${name}",` : "";
+  const newPrice = price ? ` price = "${price}",` : "";
+  const newStatus = status ? ` status = "${status}",` : "";
+  // const newUserID = userID ? ` userID = ${userID},` : "";
+
+  const queryString = `UPDATE Chores SET${newName}${newPrice}${newStatus}`;
+  const formattedQueryString = queryString.substring(0, queryString.length - 1);
+  const finalQueryString = formattedQueryString.concat(
+    ` WHERE choreID = ${choreID};`
+  );
+
+  console.log(finalQueryString);
+
+  try {
+    const [updatedChore] = await db.query(finalQueryString);
+
+    console.log(updatedChore);
+
+    res.status(200);
+    res.send(updatedChore);
+  } catch (err) {
+    console.log(err.message);
+    res.sendStatus(500).json(err);
+  }
+};

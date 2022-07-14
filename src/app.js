@@ -10,10 +10,6 @@ app.use(express.json());
 app.post("/chores", choresControllers.createChore);
 app.post("/family", familyControllers.createFamily);
 app.get("/family/:familyID/chores", choresControllers.readChores);
-
-app.get("/", (req, res) => {
-  res.status(201);
-  res.send("Hello app!");
-});
+app.patch("/family/:familyID/chores/:choreID", choresControllers.updateChores);
 
 module.exports = app;
