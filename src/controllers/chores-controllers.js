@@ -24,3 +24,21 @@ exports.createChores = async (req, res) => {
 
   db.close();
 };
+
+exports.readChores = async (req, res) => {
+  const db = await getDb();
+  const { familyID } = req.params;
+
+  try {
+    const [[chores]] = await db.query(
+      `SELECT * FROM Family WHERE familyID = ?`,
+      [familyID]
+    );
+
+    res.status(200);
+    res.send(chores);
+  } catch (err) {
+    console.log(err.message);
+    res.sendStatus(500).json(err);
+  }
+};

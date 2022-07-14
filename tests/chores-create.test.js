@@ -8,17 +8,15 @@ describe("create chore", () => {
   beforeEach(async () => (db = await getDB()));
   afterEach(async () => {
     await db.query("DELETE FROM Chores");
+    await db.query("DELETE FROM Family");
+    await db.query("DELETE FROM User");
+
     await db.close();
   });
 
   describe("/chores", () => {
     describe("POST", () => {
       it("creates a new chore in the database", async () => {
-        // make a family post request so you can use familyID as FOREIGN KEY
-        await db.query(`CREATE TABLE IF NOT EXISTS Family(
-          familyID INT PRIMARY KEY AUTO_INCREMENT,
-          familyName VARCHAR(25) NOT NULL
-         )`);
         await db.query(
           'INSERT INTO Family (familyID, familyName) VALUES (33, "Dickins")'
         );
@@ -43,6 +41,32 @@ describe("create chore", () => {
         expect(choreEntries.price).to.equal(5);
         expect(choreEntries.status).to.equal("active");
         expect(choreEntries.familyID).to.equal(33);
+      });
+    });
+
+    describe("GET", () => {
+      it("gets all chores from the database", async () => {
+        // make a Family so you can use familyID as FOREIGN KEY
+        await db.query(
+          'INSERT INTO Family (familyID, familyName) VALUES (22, "Marcu")'
+        );
+        await db.query(
+          `INSERT INTO User (email, role, userID) VALUES ("email@email.com", "child", 2)`
+        );
+        await db.query(
+          `INSERT INTO Chores (choreID, name, price, status, familyID, userID) VALUES (1, "do dishes", 10, "active", 22, 2)`
+        );
+
+        // actual test starts here
+        const res = await request(app).get("/family/22/chores").send({
+          familyID: 22,
+          userID: 11,
+        });
+
+        console.log(res.body);
+        expect(res.status).to.equal(200);
+
+        // const [[choresEntries]] = await db.query(`SELECT * FROM Chores`);
       });
     });
   });
