@@ -13,7 +13,7 @@ describe("create chore", () => {
 
   describe("/chores", () => {
     describe("POST", () => {
-      it("creates a new chore in the database", async () => {
+      xit("creates a new chore in the database", async () => {
         const res = await request(app).post("/chores").send({
           name: "Chore 1",
           price: 5,
@@ -21,14 +21,13 @@ describe("create chore", () => {
           owner: 2,
           familyID: 10,
         });
-        console.log(res.body);
+
         expect(res.status).to.equal(201);
 
         const [[choreEntries]] = await db.query(
           `SELECT * FROM Chores WHERE name = 'Chore 1'`
         );
 
-        console.log(choreEntries.price);
         expect(choreEntries.name).to.equal("Chore 1");
         expect(choreEntries.price).to.equal(5);
         expect(choreEntries.status).to.equal("active");

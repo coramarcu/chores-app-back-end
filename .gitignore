@@ -4,3 +4,6 @@ node_modules
 # environment
 .env 
 .env.test
+
+# personal scripts
+drop-main-database.js
