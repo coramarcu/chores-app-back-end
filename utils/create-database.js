@@ -26,7 +26,6 @@ const setUpDatabase = async () => {
       email VARCHAR(255) NOT NULL,
       name VARCHAR(25),
       role VARCHAR(25) NOT NULL,
-      status VARCHAR(25),
       familyID INT,
       FOREIGN KEY (familyID) REFERENCES Family(familyID),
       balance INT,
@@ -39,9 +38,7 @@ const setUpDatabase = async () => {
       price INT,
       status VARCHAR(25),
       familyID INT,
-      userID INT,
-      FOREIGN KEY(familyID) REFERENCES Family(familyID),
-      FOREIGN KEY(userID) REFERENCES User(userID)
+      FOREIGN KEY(familyID) REFERENCES Family(familyID)
      )`);
 
     db.close();
