@@ -39,7 +39,7 @@ const setUpDatabase = async () => {
       status VARCHAR(25),
       familyID INT,
       FOREIGN KEY(familyID) REFERENCES Family(familyID),
-      userID INT
+      owner INT
      )`);
 
     db.close();

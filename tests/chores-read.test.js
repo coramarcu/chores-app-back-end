@@ -16,7 +16,7 @@ describe("fetch all the chores belonging to a familyID from the database", () =>
 
   describe("/family/:familyID/chores", () => {
     describe("GET", () => {
-      it("gets all chores from the database", async () => {
+      xit("gets all chores from the database", async () => {
         await db.query(
           'INSERT INTO Family (familyID, familyName) VALUES (22, "Marcu")'
         );
@@ -37,6 +37,8 @@ describe("fetch all the chores belonging to a familyID from the database", () =>
           familyID: 22,
           userID: 11,
         });
+
+        // what the hell is this test even doing?
 
         console.log(res.body);
         expect(res.status).to.equal(200);
