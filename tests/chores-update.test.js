@@ -30,8 +30,6 @@ describe("update chore in the database", () => {
           owner: 7,
         });
 
-        // console.log(res.body + "<-- this is test log");
-
         expect(res.status).to.equal(200);
 
         const [[updatedChore]] = await db.query(

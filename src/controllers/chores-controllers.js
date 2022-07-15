@@ -34,8 +34,6 @@ exports.readChores = async (req, res) => {
       familyID,
     ]);
 
-    console.log("From Controller:" + chores);
-
     res.status(200);
     res.send(chores);
   } catch (err) {
@@ -66,8 +64,6 @@ exports.updateChore = async (req, res) => {
 
   try {
     const [updatedChore] = await db.query(finalQueryString);
-
-    console.log(updatedChore);
 
     res.status(200);
     res.send(updatedChore);

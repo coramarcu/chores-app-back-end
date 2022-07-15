@@ -42,9 +42,6 @@ describe("fetch all the chores belonging to a familyID from the database", () =>
           `SELECT * FROM Chores WHERE familyID = 22`
         );
 
-        console.log(`FROM GET CHORES TEST: ` + allChores);
-        console.log(Array.isArray(allChores));
-
         expect(allChores[0].choreID).to.equal(1);
         expect(allChores[1].name).to.equal("do laundry");
       });
