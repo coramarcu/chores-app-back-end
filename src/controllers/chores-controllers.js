@@ -44,17 +44,16 @@ exports.readChores = async (req, res) => {
   }
 };
 
-// name, price, status, userID
-exports.updateChores = async (req, res) => {
+exports.updateChore = async (req, res) => {
   const db = await getDb();
-  const { choreID, name, price, status } = req.body;
+  const { choreID, name, price, status, userID } = req.body;
 
   const newName = name ? ` name = "${name}",` : "";
   const newPrice = price ? ` price = "${price}",` : "";
   const newStatus = status ? ` status = "${status}",` : "";
-  // const newUserID = userID ? ` userID = ${userID},` : "";
+  const newUserID = userID ? ` userID = ${userID},` : "";
 
-  const queryString = `UPDATE Chores SET${newName}${newPrice}${newStatus}`;
+  const queryString = `UPDATE Chores SET${newName}${newPrice}${newStatus}${newUserID}`;
   const formattedQueryString = queryString.substring(0, queryString.length - 1);
   const finalQueryString = formattedQueryString.concat(
     ` WHERE choreID = ${choreID};`
