@@ -16,7 +16,7 @@ describe("fetch all the chores belonging to a familyID from the database", () =>
 
   describe("/family/:familyID/chores", () => {
     describe("GET", () => {
-      xit("gets all chores from the database", async () => {
+      it("gets all chores from the database", async () => {
         await db.query(
           'INSERT INTO Family (familyID, familyName) VALUES (22, "Marcu")'
         );
@@ -27,16 +27,13 @@ describe("fetch all the chores belonging to a familyID from the database", () =>
           `INSERT INTO User (email, role, userID) VALUES ("email@email.com", "child", 1)`
         );
         await db.query(
-          `INSERT INTO Chores (choreID, name, price, status, familyID, userID) VALUES (1, "do dishes", 10, "active", 22, 2)`
+          `INSERT INTO Chores (choreID, name, price, status, familyID, owner) VALUES (1, "do dishes", 10, "active", 22, 2)`
         );
         await db.query(
-          `INSERT INTO Chores (choreID, name, price, status, familyID, userID) VALUES (2, "do laundry", 15, "pending", 22, 1)`
+          `INSERT INTO Chores (choreID, name, price, status, familyID, owner) VALUES (2, "do laundry", 15, "pending", 22, 1)`
         );
 
-        const res = await request(app).get("/family/22/chores").send({
-          familyID: 22,
-          userID: 11,
-        });
+        const res = await request(app).get("/family/22/chores");
 
         // what the hell is this test even doing?
 

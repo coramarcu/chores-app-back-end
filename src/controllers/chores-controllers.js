@@ -58,17 +58,17 @@ exports.updateChore = async (req, res) => {
 
   const queryString = `UPDATE Chores SET${newName}${newPrice}${newStatus}${newOwner}`;
 
-  console.log(queryString + "<-- this is queryString");
+  // console.log(queryString + "<-- this is queryString");
 
   const formattedQueryString = queryString.substring(0, queryString.length - 1);
 
-  console.log(formattedQueryString + "<-- this is formattedQueryString");
+  // console.log(formattedQueryString + "<-- this is formattedQueryString");
 
   const finalQueryString = formattedQueryString.concat(
     ` WHERE choreID = ${choreID};`
   );
 
-  console.log(finalQueryString + "<-- this is finalQueryString");
+  // console.log(finalQueryString + "<-- this is finalQueryString");
 
   try {
     const [updatedChore] = await db.query(finalQueryString);
@@ -85,7 +85,21 @@ exports.updateChore = async (req, res) => {
   db.close();
 };
 
-// exports.deleteChore = async (req, res) => {
-//   const db = await getDb();
+exports.deleteChore = async (req, res) => {
+  const db = await getDb();
+  const { choreID } = req.params;
 
-// };
+  try {
+    const [{ affectedRows }] = await db.query(
+      `DELETE FROM Chores WHERE choreID = ?`,
+      [choreID]
+    );
+
+    affectedRows ? res.sendStatus(200) : res.sendStatus(404);
+  } catch (err) {
+    console.log(err.message);
+    res.sendStatus(500).json(err);
+  }
+
+  db.close();
+};
