@@ -28,8 +28,6 @@ describe("create chore in the database", () => {
           familyID: 33,
         });
 
-        console.log(res.body);
-
         expect(res.status).to.equal(201);
 
         const [[choreEntries]] = await db.query(

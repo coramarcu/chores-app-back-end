@@ -2,6 +2,7 @@ const { expect } = require("chai");
 const request = require("supertest");
 const getDB = require("../src/services/db");
 const app = require("../src/app");
+const { all } = require("../src/app");
 
 describe("fetch all the chores belonging to a familyID from the database", () => {
   let db;
@@ -35,10 +36,17 @@ describe("fetch all the chores belonging to a familyID from the database", () =>
 
         const res = await request(app).get("/family/22/chores");
 
-        // what the hell is this test even doing?
-
-        console.log(res.body);
         expect(res.status).to.equal(200);
+
+        const [allChores] = await db.query(
+          `SELECT * FROM Chores WHERE familyID = 22`
+        );
+
+        console.log(`FROM GET CHORES TEST: ` + allChores);
+        console.log(Array.isArray(allChores));
+
+        expect(allChores[0].choreID).to.equal(1);
+        expect(allChores[1].name).to.equal("do laundry");
       });
     });
   });
