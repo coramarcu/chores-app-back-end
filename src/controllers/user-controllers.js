@@ -5,8 +5,6 @@ exports.createUser = async (req, res) => {
   const { familyID } = req.params;
   const { email, name } = req.body;
 
-  console.log("FROM CONTROLLER:" + email + name + familyID);
-
   try {
     await db.query(
       `INSERT INTO User (familyID, email, name) VALUES (?, ?, ?)`,
@@ -19,7 +17,7 @@ exports.createUser = async (req, res) => {
       name: name,
     });
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.sendStatus(500).json(err);
   }
 

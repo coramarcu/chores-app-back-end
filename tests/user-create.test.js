@@ -7,8 +7,8 @@ describe("create a user in the database", () => {
   let db;
   beforeEach(async () => (db = await getDB()));
   afterEach(async () => {
-    await db.query("DELETE FROM Family");
     await db.query("DELETE FROM User");
+    await db.query("DELETE FROM Family");
 
     await db.close();
   });
