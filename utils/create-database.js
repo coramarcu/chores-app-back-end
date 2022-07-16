@@ -25,7 +25,7 @@ const setUpDatabase = async () => {
       userID INT PRIMARY KEY AUTO_INCREMENT,
       email VARCHAR(255) NOT NULL,
       name VARCHAR(25),
-      role VARCHAR(25) NOT NULL,
+      role VARCHAR(25) DEFAULT "parent",
       familyID INT,
       FOREIGN KEY (familyID) REFERENCES Family(familyID),
       balance INT,

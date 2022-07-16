@@ -3,6 +3,7 @@ const choresRoutes = require("./routes/chores-routes");
 const familyRoutes = require("./routes/family-routes");
 const choresControllers = require("./controllers/chores-controllers");
 const familyControllers = require("./controllers/family-controllers");
+const userControllers = require("./controllers/user-controllers");
 
 const app = express();
 
@@ -12,5 +13,6 @@ app.post("/family", familyControllers.createFamily);
 app.get("/family/:familyID/chores", choresControllers.readChores);
 app.patch("/family/:familyID/chores/:choreID", choresControllers.updateChore);
 app.delete("/family/:familyID/chores/:choreID", choresControllers.deleteChore);
+app.post("/family/:familyID/user", userControllers.createUser);
 
 module.exports = app;
