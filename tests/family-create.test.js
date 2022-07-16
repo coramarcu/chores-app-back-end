@@ -15,7 +15,6 @@ describe("create family", () => {
     describe("POST", () => {
       it("creates a new family in the database", async () => {
         const res = await request(app).post("/family").send({
-          familyID: 23,
           familyName: "The Smiths",
         });
 
@@ -25,7 +24,6 @@ describe("create family", () => {
           `SELECT * FROM Family WHERE familyName = 'The Smiths'`
         );
 
-        expect(familyEntry.familyID).to.equal(23);
         expect(familyEntry.familyName).to.equal("The Smiths");
       });
     });
