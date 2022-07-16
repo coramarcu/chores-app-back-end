@@ -2,6 +2,7 @@ const { expect } = require("chai");
 const request = require("supertest");
 const getDB = require("../src/services/db");
 const app = require("../src/app");
+const { type } = require("os");
 
 describe("create family", () => {
   let db;
@@ -18,13 +19,14 @@ describe("create family", () => {
           familyName: "The Smiths",
         });
 
-        expect(res.status).to.equal(201);
-
-        const [[familyEntry]] = await db.query(
-          `SELECT * FROM Family WHERE familyName = 'The Smiths'`
+        const [[familyQuery]] = await db.query(
+          `SELECT * FROM Family ORDER BY familyID DESC LIMIT 1`
         );
 
-        expect(familyEntry.familyName).to.equal("The Smiths");
+        expect(res.status).to.equal(201);
+
+        expect(res.body.familyID).to.equal(familyQuery.familyID);
+        expect(res.body.familyName).to.equal(familyQuery.familyName);
       });
     });
   });
