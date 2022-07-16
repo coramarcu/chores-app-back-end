@@ -4,9 +4,11 @@ const familyRoutes = require("./routes/family-routes");
 const choresControllers = require("./controllers/chores-controllers");
 const familyControllers = require("./controllers/family-controllers");
 
+const cors = require("cors");
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.post("/chores", choresControllers.createChores);
 app.post("/family", familyControllers.createFamily);
 app.get("/family/:familyID/chores", choresControllers.readChores);
