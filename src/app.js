@@ -6,7 +6,6 @@ const choresControllers = require("./controllers/chores-controllers");
 const familyControllers = require("./controllers/family-controllers");
 const userControllers = require("./controllers/user-controllers");
 
-const cors = require("cors");
 const app = express();
 
 app.use(express.json());
