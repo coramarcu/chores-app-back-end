@@ -2,16 +2,13 @@ const getDB = require("../services/db");
 
 exports.createFamily = async (req, res) => {
   const db = await getDB();
-  const { familyID, familyName } = req.body;
+  const { familyName } = req.body;
 
   try {
-    await db.query(`INSERT INTO Family (familyID, familyName) VALUES (?, ?)`, [
-      familyID,
-      familyName,
-    ]);
+    await db.query(`INSERT INTO Family (familyName) VALUES (?)`, [familyName]);
 
     res.status(201);
-    res.send({ familyID: familyID, familyName: familyName });
+    res.send({ familyName: familyName });
   } catch (err) {
     console.log(err.message);
     res.sendStatus(500).json(err);

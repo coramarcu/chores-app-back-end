@@ -1,21 +1,22 @@
 const express = require("express");
+const cors = require("cors");
 const choresRoutes = require("./routes/chores-routes");
 const familyRoutes = require("./routes/family-routes");
 const choresControllers = require("./controllers/chores-controllers");
 const familyControllers = require("./controllers/family-controllers");
+const userControllers = require("./controllers/user-controllers");
 
 const cors = require("cors");
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.post("/chores", choresControllers.createChores);
+
+app.post("/chores", choresControllers.createChore);
 app.post("/family", familyControllers.createFamily);
 app.get("/family/:familyID/chores", choresControllers.readChores);
-
-app.get("/", (req, res) => {
-  res.status(201);
-  res.send("Hello app!");
-});
+app.patch("/family/:familyID/chores/:choreID", choresControllers.updateChore);
+app.delete("/family/:familyID/chores/:choreID", choresControllers.deleteChore);
+app.post("/family/:familyID/user", userControllers.createUser);
 
 module.exports = app;
