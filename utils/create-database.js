@@ -29,7 +29,8 @@ const setUpDatabase = async () => {
       familyID INT,
       FOREIGN KEY (familyID) REFERENCES Family(familyID),
       balance INT,
-      amountRequested INT
+      amountRequested INT,
+      firebaseID VARCHAR(30)
      )`);
 
     await db.query(`CREATE TABLE IF NOT EXISTS Chores(
