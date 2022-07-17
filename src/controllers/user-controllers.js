@@ -54,7 +54,7 @@ exports.updateUser = async (req, res) => {
   const { userID } = req.params;
 
   const newName = name ? ` name = "${name}",` : "";
-  const newFirebaseID = firebaseID ? ` firebaseID = ${firebaseID},` : "";
+  const newFirebaseID = firebaseID ? ` firebaseID = "${firebaseID}",` : "";
 
   const queryString = `UPDATE User SET${newName}${newFirebaseID}`;
   const formattedQueryString = queryString.substring(0, queryString.length - 1);
