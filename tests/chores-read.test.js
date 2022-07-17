@@ -2,7 +2,6 @@ const { expect } = require("chai");
 const request = require("supertest");
 const getDB = require("../src/services/db");
 const app = require("../src/app");
-const { all } = require("../src/app");
 
 describe("fetch all the chores belonging to a familyID from the database", () => {
   let db;

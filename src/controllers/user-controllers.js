@@ -47,3 +47,30 @@ exports.readUser = async (req, res) => {
 
   db.close();
 };
+
+exports.updateUser = async (req, res) => {
+  const db = await getDb();
+  const { name, firebaseID } = req.body;
+  const { userID } = req.params;
+
+  const newName = name ? ` name = "${name}",` : "";
+  const newFirebaseID = firebaseID ? ` firebaseID = ${firebaseID},` : "";
+
+  const queryString = `UPDATE User SET${newName}${newFirebaseID}`;
+  const formattedQueryString = queryString.substring(0, queryString.length - 1);
+  const finalQueryString = formattedQueryString.concat(
+    ` WHERE userID = ${userID};`
+  );
+
+  try {
+    const [updatedUser] = await db.query(finalQueryString);
+
+    res.status(201);
+    res.send(updatedUser);
+  } catch (err) {
+    console.log(err.message);
+    res.sendStatus(500).json(err);
+  }
+
+  db.close();
+};
