@@ -17,5 +17,6 @@ app.get("/family/:familyID/chores", choresControllers.readChores);
 app.patch("/family/:familyID/chores/:choreID", choresControllers.updateChore);
 app.delete("/family/:familyID/chores/:choreID", choresControllers.deleteChore);
 app.post("/family/:familyID/users", userControllers.createUser);
+app.get("/family/:familyID/users", userControllers.readUser);
 
 module.exports = app;
