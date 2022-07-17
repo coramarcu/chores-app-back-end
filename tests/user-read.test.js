@@ -26,11 +26,28 @@ describe("read users", () => {
 
         const res = await request(app)
           .get(`/family/${familyRes.body.familyID}/users`)
-          .send(userRes.body.userID);
+          .send(userRes.body.email);
 
         expect(res.status).to.equal(201);
         expect(res.body.userID).to.equal(userRes.body.userID);
       });
+
+      // it("gets user by role", async () => {
+      //   const familyRes = await request(app)
+      //     .post("/family")
+      //     .send({ familyName: "Obama" });
+
+      //   const userRes = await request(app)
+      //     .post(`/family/${familyRes.body.familyID}/users`)
+      //     .send({ email: "cora@email.com", name: "Cora", role: "child" });
+
+      //   const res = await request(app)
+      //     .get(`/family/${familyRes.body.familyID}/users`)
+      //     .send(userRes.body.userID);
+
+      //   expect(res.status).to.equal(201);
+      //   expect(res.body.userID).to.equal(userRes.body.userID);
+      // });
     });
   });
 });
