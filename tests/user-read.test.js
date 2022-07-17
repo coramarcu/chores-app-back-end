@@ -26,17 +26,6 @@ describe("read users", () => {
           .post(`/family/${familyRes.body.familyID}/users`)
           .send({ email: "cora@email.com", name: "Cora", role: "child" });
 
-        // console.log(`TYPE OF userRES.body IS: ${typeof userRes.body}`);
-
-        // console.log("KEYS OF UserRes.body ARE: " + Object.keys(userRes.body));
-        // console.log(`TYPE OF userRes.body[0] IS: ${userRes.body[0][0]}`);
-        // console.log(
-        //   "KEYS OF UserRes.body[0] ARE: " + Object.keys(userRes.body[0])
-        // );
-        // console.log(
-        //   `WHAT IS AT userRes.body[0].userID : ${userRes.body[0].userID}`
-        // );
-
         // get the new user
         const res = await request(app)
           .get(`/family/${familyRes.body.familyID}/users`)
