@@ -13,13 +13,15 @@ exports.createUser = async (req, res) => {
       [familyID, email, name, newRole]
     );
 
+    const [newUser] = await db.query(
+      `SELECT * FROM User WHERE email = "${email}"`
+    );
+
+    console.log(`TYPE OF NEW USER: ${Array.isArray(newUser)}`);
+    console.log(`NEW USER IN CREATE_USER CONTROLLER: ${Object.keys(newUser)}`);
+
     res.status(201);
-    res.send({
-      familyID: familyID,
-      email: email,
-      name: name,
-      role: newRole,
-    });
+    res.send(newUser);
   } catch (err) {
     console.log(err);
     res.sendStatus(500).json(err);
@@ -30,16 +32,23 @@ exports.createUser = async (req, res) => {
 
 exports.readUser = async (req, res) => {
   const db = await getDb();
-  const { email } = req.body;
+  const { email, role } = req.body;
+
+  const queryString = role
+    ? `SELECT * FROM User WHERE role = "${role}"`
+    : `SELECT * FROM User WHERE email = "${email}"`;
+
+  console.log(`QUERY STRING IS: ${queryString}`);
 
   try {
-    const [[foundUser]] = await db.query(`SELECT * FROM User WHERE email = ?`, [
-      email,
-    ]);
-    console.log("FROM CONTROLLER: " + foundUser);
+    const [foundUsers] = await db.query(queryString);
+
+    console.log(
+      "FROM CONTROLLER foundUsers[0].userID: " + foundUsers[0].userID
+    );
 
     res.status(201);
-    res.send(foundUser);
+    res.send(foundUsers);
   } catch (err) {
     console.log(err);
     res.sendStatus(500).json(err);

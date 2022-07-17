@@ -16,6 +16,37 @@ describe("read users", () => {
   describe("/family/:familyID/users", () => {
     describe("GET", () => {
       it("gets user by email", async () => {
+        // create a family in database
+        const familyRes = await request(app)
+          .post("/family")
+          .send({ familyName: "Obama" });
+
+        // create a user in the new family
+        const userRes = await request(app)
+          .post(`/family/${familyRes.body.familyID}/users`)
+          .send({ email: "cora@email.com", name: "Cora", role: "child" });
+
+        // console.log(`TYPE OF userRES.body IS: ${typeof userRes.body}`);
+
+        // console.log("KEYS OF UserRes.body ARE: " + Object.keys(userRes.body));
+        // console.log(`TYPE OF userRes.body[0] IS: ${userRes.body[0][0]}`);
+        // console.log(
+        //   "KEYS OF UserRes.body[0] ARE: " + Object.keys(userRes.body[0])
+        // );
+        // console.log(
+        //   `WHAT IS AT userRes.body[0].userID : ${userRes.body[0].userID}`
+        // );
+
+        // get the new user
+        const res = await request(app)
+          .get(`/family/${familyRes.body.familyID}/users`)
+          .send({ email: userRes.body[0].email });
+
+        expect(res.status).to.equal(201);
+        expect(res.body[0].userID).to.equal(userRes.body[0].userID);
+      });
+
+      it("gets user by role", async () => {
         const familyRes = await request(app)
           .post("/family")
           .send({ familyName: "Obama" });
@@ -26,28 +57,11 @@ describe("read users", () => {
 
         const res = await request(app)
           .get(`/family/${familyRes.body.familyID}/users`)
-          .send(userRes.body.email);
+          .send({ role: userRes.body[0].role });
 
         expect(res.status).to.equal(201);
-        expect(res.body.userID).to.equal(userRes.body.userID);
+        expect(res.body[0].role).to.equal(userRes.body[0].role);
       });
-
-      // it("gets user by role", async () => {
-      //   const familyRes = await request(app)
-      //     .post("/family")
-      //     .send({ familyName: "Obama" });
-
-      //   const userRes = await request(app)
-      //     .post(`/family/${familyRes.body.familyID}/users`)
-      //     .send({ email: "cora@email.com", name: "Cora", role: "child" });
-
-      //   const res = await request(app)
-      //     .get(`/family/${familyRes.body.familyID}/users`)
-      //     .send(userRes.body.userID);
-
-      //   expect(res.status).to.equal(201);
-      //   expect(res.body.userID).to.equal(userRes.body.userID);
-      // });
     });
   });
 });
