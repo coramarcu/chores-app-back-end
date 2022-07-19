@@ -29,12 +29,10 @@ exports.createUser = async (req, res) => {
 
 exports.readUser = async (req, res) => {
   const db = await getDb();
-  const { email, role } = req.body;
-
+  const { familyID, email, role } = req.query;
   const queryString = role
-    ? `SELECT * FROM User WHERE role = "${role}"`
+    ? `SELECT * FROM User WHERE familyID = ${familyID} AND role = "${role}"`
     : `SELECT * FROM User WHERE email = "${email}"`;
-
   try {
     const [foundUsers] = await db.query(queryString);
 
@@ -47,6 +45,7 @@ exports.readUser = async (req, res) => {
 
   db.close();
 };
+
 
 exports.updateUser = async (req, res) => {
   const db = await getDb();

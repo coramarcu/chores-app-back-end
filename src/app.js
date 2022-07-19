@@ -17,7 +17,10 @@ app.get("/family/:familyID/chores", choresControllers.readChores);
 app.patch("/family/:familyID/chores/:choreID", choresControllers.updateChore);
 app.delete("/family/:familyID/chores/:choreID", choresControllers.deleteChore);
 app.post("/family/:familyID/users", userControllers.createUser);
-app.get("/family/:familyID/users", userControllers.readUser);
+app.get("/family/users", userControllers.readUser);
+// on login and sign up, to return the familyID and userID
+// in the parents view, to gain a list of their children so they can view their profiles
 app.patch("/family/:familyID/users/:userID", userControllers.updateUser);
 
 module.exports = app;
+ 
