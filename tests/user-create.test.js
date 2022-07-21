@@ -13,14 +13,14 @@ describe("create a user in the database", () => {
     await db.close();
   });
 
-  describe("/family/:familyID/user", () => {
+  describe("/family/:familyID/users", () => {
     describe("POST", () => {
       it("first parent creates a user in the database (based on familyID)", async () => {
         await db.query(
           'INSERT INTO Family (familyID, familyName) VALUES (999, "Potter")'
         );
 
-        const res = await request(app).post("/family/999/user").send({
+        const res = await request(app).post("/family/999/users").send({
           email: "parentOne@email.com",
           name: "Parent One",
         });

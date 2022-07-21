@@ -6,7 +6,6 @@ const choresControllers = require("./controllers/chores-controllers");
 const familyControllers = require("./controllers/family-controllers");
 const userControllers = require("./controllers/user-controllers");
 
-const cors = require("cors");
 const app = express();
 
 app.use(express.json());
@@ -17,6 +16,11 @@ app.post("/family", familyControllers.createFamily);
 app.get("/family/:familyID/chores", choresControllers.readChores);
 app.patch("/family/:familyID/chores/:choreID", choresControllers.updateChore);
 app.delete("/family/:familyID/chores/:choreID", choresControllers.deleteChore);
-app.post("/family/:familyID/user", userControllers.createUser);
+app.post("/family/:familyID/users", userControllers.createUser);
+app.get("/family/users", userControllers.readUser);
+// on login and sign up, to return the familyID and userID
+// in the parents view, to gain a list of their children so they can view their profiles
+app.patch("/family/:familyID/users/:userID", userControllers.updateUser);
 
 module.exports = app;
+ 

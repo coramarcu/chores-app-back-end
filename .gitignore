@@ -7,3 +7,6 @@ node_modules
 
 # personal scripts
 drop-main-database.js
+
+package.json
+app.js
