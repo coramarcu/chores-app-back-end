@@ -13,7 +13,7 @@ describe("read users", () => {
     await db.close();
   });
 
-  describe("/family/:familyID/users", () => {
+  describe("/family/users", () => {
     describe("GET", () => {
       it("gets user by email", async () => {
         // create a family in database
@@ -28,8 +28,7 @@ describe("read users", () => {
 
         // get the new user
         const res = await request(app)
-          .get(`/family/${familyRes.body.familyID}/users`)
-          .send({ email: userRes.body[0].email });
+          .get(`/family/users?email=${userRes.body[0].email}`)
 
         expect(res.status).to.equal(201);
         expect(res.body[0].userID).to.equal(userRes.body[0].userID);
@@ -45,8 +44,7 @@ describe("read users", () => {
           .send({ email: "cora@email.com", name: "Cora", role: "child" });
 
         const res = await request(app)
-          .get(`/family/${familyRes.body.familyID}/users`)
-          .send({ role: userRes.body[0].role });
+          .get(`/family/users?familyID=${familyRes.body.familyID}&role=${userRes.body[0].role}`)
 
         expect(res.status).to.equal(201);
         expect(res.body[0].role).to.equal(userRes.body[0].role);
